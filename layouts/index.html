@@ -1,0 +1,96 @@
+{{ define "main" }}
+<!-- Hero 区块 -->
+<section class="hero" id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+        <h1 class="hero-name" id="heroName">{{ .Site.Params.author | default "Your Name" }}</h1>
+        <p class="hero-tagline" data-i18n="hero.tagline">{{ i18n "hero_tagline" }}</p>
+    </div>
+    <div class="scroll-hint" data-i18n="hero.scroll">{{ i18n "hero_scroll" }}</div>
+</section>
+
+<!-- 作品集区块 -->
+<section class="section" id="portfolio">
+    <span class="section-label" data-i18n="portfolio.label">{{ i18n "portfolio_label" }}</span>
+    <h2 class="section-title" data-i18n="portfolio.title">{{ i18n "portfolio_title" }}</h2>
+    <div class="portfolio-grid">
+        {{ range first 4 (where .Site.RegularPages "Section" "projects") }}
+        <article class="project-card">
+            <div class="project-mask">
+                <span data-i18n="portfolio.view">{{ i18n "portfolio_view" }}</span>
+            </div>
+            <div class="project-content">
+                <div class="project-number">{{ printf "%03d" (add .Ordinal 1) }}</div>
+                <h3 class="project-title">{{ .Title }}</h3>
+                <p class="project-desc">{{ .Description }}</p>
+                <div class="project-tags">
+                    {{ range .Params.tags }}<span class="tag">{{ . }}</span>{{ end }}
+                </div>
+            </div>
+        </article>
+        {{ end }}
+    </div>
+</section>
+
+<!-- 博客区块 -->
+<section class="section" id="blog">
+    <span class="section-label" data-i18n="blog.label">{{ i18n "blog_label" }}</span>
+    <h2 class="section-title" data-i18n="blog.title">{{ i18n "blog_title" }}</h2>
+    <div class="blog-list">
+        {{ range first 3 (where .Site.RegularPages "Section" "posts") }}
+        <a href="{{ .RelPermalink }}" class="blog-item">
+            <time class="blog-date">{{ .Date.Format "2006.01.02" }}</time>
+            <div class="blog-main">
+                <h3 class="blog-title">{{ .Title }}</h3>
+                <p class="blog-excerpt">{{ .Description }}</p>
+            </div>
+            <span class="blog-arrow">→</span>
+        </a>
+        {{ end }}
+    </div>
+</section>
+
+<!-- 简历区块 -->
+<section class="section" id="resume">
+    <span class="section-label" data-i18n="resume.label">{{ i18n "resume_label" }}</span>
+    <h2 class="section-title" data-i18n="resume.title">{{ i18n "resume_title" }}</h2>
+    <div class="timeline" id="timeline">
+        {{ range where .Site.RegularPages "Section" "resume" }}
+        <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-year">{{ .Params.period }}</div>
+            <h3 class="timeline-role">{{ .Title }}</h3>
+            <p class="timeline-company">{{ .Params.company }}</p>
+            <p class="timeline-desc">{{ .Description }}</p>
+        </div>
+        {{ end }}
+    </div>
+</section>
+
+<!-- 关于区块 -->
+<section class="section" id="about">
+    <span class="section-label" data-i18n="about.label">{{ i18n "about_label" }}</span>
+    <blockquote class="about-quote" id="aboutQuote">
+        <span class="line"><span class="line-inner" data-i18n="about.l1">{{ i18n "about_l1" }}</span></span>
+        <span class="line"><span class="line-inner" data-i18n="about.l2">{{ i18n "about_l2" }}</span></span>
+        <span class="line"><span class="line-inner" data-i18n="about.l3">{{ i18n "about_l3" }}</span></span>
+    </blockquote>
+    <div class="skills">
+        {{ range .Site.Params.skills }}
+        <span class="skill-tag">{{ . }}</span>
+        {{ end }}
+    </div>
+</section>
+
+<!-- 联系区块 -->
+<section class="section contact" id="contact">
+    <h2 class="contact-title" data-i18n="contact.title">{{ i18n "contact_title" }}</h2>
+    <ul class="contact-links">
+        <li><a class="contact-link" href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></li>
+        <li><a class="contact-link" href="{{ .Site.Params.github }}" target="_blank" rel="noopener">GitHub</a></li>
+        {{ with .Site.Params.twitter }}
+        <li><a class="contact-link" href="{{ . }}" target="_blank" rel="noopener">Twitter</a></li>
+        {{ end }}
+    </ul>
+</section>
+{{ end }}

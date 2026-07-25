@@ -1,0 +1,22 @@
+# Hugo 构建产物与缓存
+public/
+resources/_gen/
+.hugo_build.lock
+
+# IDE / 编辑器
+.vscode/
+.trae/
+.idea/
+
+# AI 工具会话产物
+.superpowers/
+.workbuddy/
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 日志与临时文件
+*.log
+*.tmp

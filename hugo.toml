@@ -1,0 +1,89 @@
+# Hugo 站点配置文件
+baseURL = "https://LLL-404.github.io/personal-homepage/"
+languageCode = "zh-cn"
+title = "Your Name"
+# 不使用外部主题，使用自定义布局
+theme = ""
+
+# 双语配置
+[languages]
+# 中文（默认语言）
+[languages.zh]
+languageName = "中文"
+weight = 1
+contentDir = "content/zh"
+
+# 英文
+[languages.en]
+languageName = "English"
+weight = 2
+contentDir = "content/en"
+
+# 中文菜单
+[[languages.zh.menu.main]]
+name = "首页"
+url = "/"
+weight = 1
+
+[[languages.zh.menu.main]]
+name = "作品集"
+url = "/projects/"
+weight = 2
+
+[[languages.zh.menu.main]]
+name = "博客"
+url = "/posts/"
+weight = 3
+
+[[languages.zh.menu.main]]
+name = "简历"
+url = "/resume/"
+weight = 4
+
+[[languages.zh.menu.main]]
+name = "关于"
+url = "/about/"
+weight = 5
+
+[[languages.zh.menu.main]]
+name = "联系"
+url = "/contact/"
+weight = 6
+
+# 英文菜单
+[[languages.en.menu.main]]
+name = "Home"
+url = "/en/"
+weight = 1
+
+[[languages.en.menu.main]]
+name = "Projects"
+url = "/en/projects/"
+weight = 2
+
+[[languages.en.menu.main]]
+name = "Blog"
+url = "/en/posts/"
+weight = 3
+
+[[languages.en.menu.main]]
+name = "Resume"
+url = "/en/resume/"
+weight = 4
+
+[[languages.en.menu.main]]
+name = "About"
+url = "/en/about/"
+weight = 5
+
+[[languages.en.menu.main]]
+name = "Contact"
+url = "/en/contact/"
+weight = 6
+
+# 站点参数
+[params]
+author = "Your Name"
+description = "个人主页 - 作品集、博客、简历"
+github = "https://github.com/username"
+email = "email@example.com"

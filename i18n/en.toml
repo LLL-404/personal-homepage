@@ -1,0 +1,22 @@
+[nav_home]
+other = "Home"
+[nav_projects]
+other = "Projects"
+[nav_blog]
+other = "Blog"
+[nav_resume]
+other = "Resume"
+[nav_about]
+other = "About"
+[nav_contact]
+other = "Contact"
+[theme_toggle]
+other = "Toggle theme"
+[language_toggle]
+other = "中文"
+[read_more]
+other = "Read more"
+[back_to_list]
+other = "Back to list"
+[download_pdf]
+other = "Download PDF"

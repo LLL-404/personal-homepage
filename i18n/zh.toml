@@ -1,0 +1,22 @@
+[nav_home]
+other = "首页"
+[nav_projects]
+other = "作品集"
+[nav_blog]
+other = "博客"
+[nav_resume]
+other = "简历"
+[nav_about]
+other = "关于"
+[nav_contact]
+other = "联系"
+[theme_toggle]
+other = "切换主题"
+[language_toggle]
+other = "English"
+[read_more]
+other = "阅读更多"
+[back_to_list]
+other = "返回列表"
+[download_pdf]
+other = "下载 PDF"

@@ -1,0 +1,648 @@
+<!-- ========== CDN 脚本：GSAP / Lenis / Three.js ========== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+    'use strict';
+
+    /* ============================================================
+     * 工具函数模块
+     * ============================================================ */
+    const Utils = {
+        // 安全检测全局库是否加载成功（CDN 可能失败）
+        has(libraryName) {
+            return typeof window[libraryName] !== 'undefined';
+        },
+        // 帧率节流的函数包装
+        rafThrottle(fn) {
+            let ticking = false;
+            return function (...args) {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        fn.apply(this, args);
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            };
+        }
+    };
+
+    /* ============================================================
+     * 国际化模块（中英文切换）
+     * ============================================================ */
+    const I18n = {
+        // 当前语言：zh 或 en
+        current: 'zh',
+        // 文案字典
+        dict: {
+            zh: {
+                'nav.work': '作品', 'nav.blog': '博客', 'nav.resume': '简历',
+                'nav.about': '关于', 'nav.contact': '联系',
+                'hero.tagline': '代码即诗，用意图构建。',
+                'hero.scroll': '向下滚动',
+                'portfolio.label': '01 — 精选作品', 'portfolio.title': '精选作品',
+                'portfolio.view': '查看项目 →',
+                'portfolio.p1.desc': '一套面向深色模式的现代设计系统，包含 80+ 组件与完整的 Token 规范。',
+                'portfolio.p2.desc': '基于 CRDT 的实时协作 markdown 编辑器，支持离线优先与端到端加密。',
+                'portfolio.p3.desc': '面向 SaaS 的实时指标可视化平台，支持自定义看板与异常检测告警。',
+                'portfolio.p4.desc': '极简的本地开发环境编排工具，一行命令拉起完整微服务拓扑。',
+                'blog.label': '02 — 最新文章', 'blog.title': '近期写作',
+                'blog.p1.title': '关于字体驱动的界面设计',
+                'blog.p1.excerpt': '探讨为什么衬线字体正在回归现代 Web，以及如何用排版建立秩序与情绪。',
+                'blog.p2.title': 'CRDT 与实时协作的工程实践',
+                'blog.p2.excerpt': '从 Yjs 到 Automerge，拆解冲突自由数据类型在真实业务中的取舍与落地。',
+                'blog.p3.title': 'WebAssembly 的边界与未来',
+                'blog.p3.excerpt': 'WASM 真的会取代 JavaScript 吗？我们在三个生产项目中得到的答案。',
+                'resume.label': '03 — 经历', 'resume.title': '经历',
+                'resume.r1.desc': '负责设计平台核心架构，主导从单体到事件驱动微服务的迁移，服务可用性提升至 99.99%。',
+                'resume.r2.desc': '主导设计与工程团队的协作流程，建立组件库与设计 Token 系统，覆盖 12 条产品线。',
+                'resume.r3.desc': '独立交付多个面向客户的 Web 产品，覆盖从架构设计到上线运维的完整生命周期。',
+                'resume.r4.desc': '参与核心业务系统的研发与优化，深入实践分布式系统与高并发场景下的工程方法。',
+                'about.label': '04 — 关于',
+                'about.l1': '我相信好的软件像好的文字——',
+                'about.l2': '克制、精确、并在恰当的时刻',
+                'about.l3': '说出它应该说的话。',
+                'contact.title': '保持联系。',
+                'footer.built': '用意图构建'
+            },
+            en: {
+                'nav.work': 'Work', 'nav.blog': 'Writing', 'nav.resume': 'Resume',
+                'nav.about': 'About', 'nav.contact': 'Contact',
+                'hero.tagline': 'Code is poetry. Build with intention.',
+                'hero.scroll': 'Scroll down',
+                'portfolio.label': '01 — Selected Work', 'portfolio.title': 'Selected Work',
+                'portfolio.view': 'View project →',
+                'portfolio.p1.desc': 'A modern design system tuned for dark mode, featuring 80+ components and complete token specs.',
+                'portfolio.p2.desc': 'A CRDT-based real-time collaborative markdown editor with offline-first and end-to-end encryption.',
+                'portfolio.p3.desc': 'A real-time metrics visualization platform for SaaS, with custom dashboards and anomaly alerts.',
+                'portfolio.p4.desc': 'A minimal local dev orchestration tool that spins up a full microservice topology in one command.',
+                'blog.label': '02 — Recent Writing', 'blog.title': 'Writing',
+                'blog.p1.title': 'On Font-Driven Interface Design',
+                'blog.p1.excerpt': 'Why serifs are returning to the modern web, and how typography establishes order and mood.',
+                'blog.p2.title': 'CRDT and the Engineering of Real-Time Collaboration',
+                'blog.p2.excerpt': 'From Yjs to Automerge: trade-offs of conflict-free data types in real-world production.',
+                'blog.p3.title': 'The Boundaries and Future of WebAssembly',
+                'blog.p3.excerpt': 'Will WASM really replace JavaScript? Lessons from three production projects.',
+                'resume.label': '03 — Experience', 'resume.title': 'Experience',
+                'resume.r1.desc': 'Led core platform architecture and the migration from monolith to event-driven microservices, lifting availability to 99.99%.',
+                'resume.r2.desc': 'Drove design-engineering collaboration and built a component library and token system across 12 product lines.',
+                'resume.r3.desc': 'Independently delivered multiple client-facing web products across the full lifecycle from architecture to ops.',
+                'resume.r4.desc': 'Contributed to core business systems, practicing distributed systems engineering under high-concurrency scenarios.',
+                'about.label': '04 — About',
+                'about.l1': 'I believe good software is like good writing —',
+                'about.l2': 'restrained, precise, and at the right moment,',
+                'about.l3': 'it says exactly what it should.',
+                'contact.title': "Let's talk.",
+                'footer.built': 'Built with intention'
+            }
+        },
+        // 应用语言到所有 data-i18n 节点
+        apply(lang) {
+            this.current = lang;
+            const map = this.dict[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (map[key] !== undefined) el.textContent = map[key];
+            });
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+            // 更新切换按钮文字
+            const btn = document.getElementById('langToggle');
+            if (btn) btn.textContent = lang === 'zh' ? 'EN' : '中';
+            // 持久化
+            try { localStorage.setItem('lang', lang); } catch (e) {}
+        },
+        // 切换中英文
+        toggle() {
+            this.apply(this.current === 'zh' ? 'en' : 'zh');
+        },
+        // 初始化：读取存储或默认中文
+        init() {
+            let lang = 'zh';
+            try {
+                const saved = localStorage.getItem('lang');
+                if (saved === 'en' || saved === 'zh') lang = saved;
+            } catch (e) {}
+            this.apply(lang);
+        }
+    };
+
+    /* ============================================================
+     * 主题切换模块（亮色 / 暗色）
+     * ============================================================ */
+    const Theme = {
+        // 月亮图标 SVG path（暗色模式下显示，点击切到亮色）
+        moonPath: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>',
+        // 太阳图标 SVG path（亮色模式下显示，点击切到暗色）
+        sunPath: '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>',
+
+        apply(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const icon = document.getElementById('themeIcon');
+            if (icon) icon.innerHTML = theme === 'dark' ? this.moonPath : this.sunPath;
+            try { localStorage.setItem('theme', theme); } catch (e) {}
+        },
+        toggle() {
+            const current = document.documentElement.getAttribute('data-theme');
+            this.apply(current === 'dark' ? 'light' : 'dark');
+        },
+        init() {
+            let theme = 'dark';
+            try {
+                const saved = localStorage.getItem('theme');
+                if (saved === 'light' || saved === 'dark') {
+                    theme = saved;
+                } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                    theme = 'light';
+                }
+            } catch (e) {}
+            this.apply(theme);
+        }
+    };
+
+    /* ============================================================
+     * 自定义光标模块
+     * ============================================================ */
+    const Cursor = {
+        el: null,
+        x: 0, y: 0,
+        targetX: 0, targetY: 0,
+        // 缓动系数，越小越柔
+        ease: 0.15,
+        // 初始化光标与事件
+        init() {
+            this.el = document.getElementById('cursorDot');
+            if (!this.el) return;
+            // 监听鼠标移动，记录目标位置
+            document.addEventListener('mousemove', (e) => {
+                this.targetX = e.clientX;
+                this.targetY = e.clientY;
+            }, { passive: true });
+            // 交互元素 hover 时放大
+            const hoverSelector = 'a, button, .project-card, .blog-item, .skill-tag, .contact-link';
+            document.querySelectorAll(hoverSelector).forEach(el => {
+                el.addEventListener('mouseenter', () => this.el.classList.add('is-hover'));
+                el.addEventListener('mouseleave', () => this.el.classList.remove('is-hover'));
+            });
+            this.render();
+        },
+        // 帧渲染：缓动跟随
+        render() {
+            this.x += (this.targetX - this.x) * this.ease;
+            this.y += (this.targetY - this.y) * this.ease;
+            this.el.style.transform = `translate(${this.x}px, ${this.y}px) translate(-50%, -50%)`;
+            requestAnimationFrame(() => this.render());
+        }
+    };
+
+    /* ============================================================
+     * Hero 名字逐字显现 + 3D 倾斜模块
+     * ============================================================ */
+    const HeroName = {
+        init() {
+            const el = document.getElementById('heroName');
+            if (!el) return;
+            const text = el.textContent;
+            // 拆分字符，空格用占位 span
+            el.innerHTML = '';
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                if (char === ' ') {
+                    span.className = 'char space';
+                } else {
+                    span.className = 'char';
+                    span.textContent = char;
+                }
+                el.appendChild(span);
+            });
+
+            // 使用 GSAP 做逐字 stagger 渐入；CDN 失败则用 CSS 兜底
+            if (Utils.has('gsap')) {
+                gsap.to('.hero-name .char', {
+                    opacity: 1,
+                    y: 0,
+                    rotateX: 0,
+                    duration: 1,
+                    ease: 'power4.out',
+                    stagger: 0.06,
+                    delay: 0.3
+                });
+                gsap.to('.hero-tagline', {
+                    opacity: 1,
+                    duration: 1,
+                    delay: 1.2,
+                    ease: 'power2.out'
+                });
+            } else {
+                // 兜底：直接显示
+                el.querySelectorAll('.char').forEach(c => {
+                    c.style.opacity = '1';
+                    c.style.transform = 'none';
+                });
+                document.querySelector('.hero-tagline').style.opacity = '1';
+            }
+
+            // 鼠标移动 3D 倾斜（基于鼠标相对位置计算 rotateX/rotateY）
+            this.bindTilt();
+        },
+        bindTilt() {
+            const hero = document.querySelector('.hero');
+            const nameEl = document.getElementById('heroName');
+            if (!hero || !nameEl) return;
+            // 限制最大倾斜角度（度）
+            const maxTilt = 8;
+            // 节流处理鼠标移动
+            const onMove = Utils.rafThrottle((e) => {
+                const rect = hero.getBoundingClientRect();
+                // 鼠标相对中心的归一化坐标 [-1, 1]
+                const px = (e.clientX - rect.left) / rect.width - 0.5;
+                const py = (e.clientY - rect.top) / rect.height - 0.5;
+                nameEl.style.transform = `rotateY(${px * maxTilt * 2}deg) rotateX(${-py * maxTilt * 2}deg)`;
+            });
+            hero.addEventListener('mousemove', onMove);
+            // 离开时复位
+            hero.addEventListener('mouseleave', () => {
+                nameEl.style.transform = 'rotateY(0) rotateX(0)';
+            });
+        }
+    };
+
+    /* ============================================================
+     * Three.js 粒子背景模块（Hero 区块）
+     * 极淡的粒子网格，鼠标靠近产生扰动
+     * ============================================================ */
+    const ParticleBg = {
+        scene: null, camera: null, renderer: null,
+        particles: null, mouse: { x: 0, y: 0 },
+        // 初始化场景
+        init() {
+            if (!Utils.has('THREE')) return;
+            const canvas = document.getElementById('hero-canvas');
+            if (!canvas) return;
+            try {
+                this.scene = new THREE.Scene();
+                this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+                this.camera.position.z = 400;
+                this.renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+                this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                this.createParticles();
+                this.bindEvents();
+                this.animate();
+            } catch (e) {
+                console.warn('Three.js 初始化失败，跳过粒子背景', e);
+            }
+        },
+        // 创建粒子点云
+        createParticles() {
+            const geometry = new THREE.BufferGeometry();
+            const count = 600;
+            const positions = new Float32Array(count * 3);
+            const originalPositions = new Float32Array(count * 3);
+            // 立体分布的粒子
+            for (let i = 0; i < count * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 800;
+                positions[i + 1] = (Math.random() - 0.5) * 800;
+                positions[i + 2] = (Math.random() - 0.5) * 800;
+                originalPositions[i] = positions[i];
+                originalPositions[i + 1] = positions[i + 1];
+                originalPositions[i + 2] = positions[i + 2];
+            }
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            this.originalPositions = originalPositions;
+
+            // 根据主题色生成粒子材质
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const material = new THREE.PointsMaterial({
+                color: isDark ? 0xffffff : 0x0a0a0a,
+                size: 2,
+                transparent: true,
+                opacity: 0.4,
+                sizeAttenuation: true
+            });
+            this.particles = new THREE.Points(geometry, material);
+            this.scene.add(this.particles);
+        },
+        // 绑定鼠标事件用于扰动
+        bindEvents() {
+            document.addEventListener('mousemove', (e) => {
+                this.mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+                this.mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            }, { passive: true });
+            // 窗口大小变化时重置渲染器
+            window.addEventListener('resize', Utils.rafThrottle(() => {
+                if (!this.camera || !this.renderer) return;
+                this.camera.aspect = window.innerWidth / window.innerHeight;
+                this.camera.updateProjectionMatrix();
+                this.renderer.setSize(window.innerWidth, window.innerHeight);
+            }));
+        },
+        // 动画循环：粒子旋转 + 鼠标扰动（帧率控制，避免与 Lenis 竞争）
+        _frameCount: 0,
+        animate() {
+            if (!this.particles) return;
+            requestAnimationFrame(() => this.animate());
+            this._frameCount++;
+            // 每 2 帧更新一次粒子位置，减少计算量
+            if (this._frameCount % 2 === 0) {
+                // 整体缓慢旋转
+                this.particles.rotation.y += 0.001;
+                this.particles.rotation.x += 0.0004;
+                // 鼠标扰动：将粒子向鼠标方向轻微偏移
+                const positions = this.particles.geometry.attributes.position.array;
+                const original = this.originalPositions;
+                for (let i = 0; i < positions.length; i += 3) {
+                    const targetX = original[i] + this.mouse.x * 20;
+                    const targetY = original[i + 1] + this.mouse.y * 20;
+                    positions[i] += (targetX - positions[i]) * 0.04;
+                    positions[i + 1] += (targetY - positions[i + 1]) * 0.04;
+                }
+                this.particles.geometry.attributes.position.needsUpdate = true;
+            }
+            this.renderer.render(this.scene, this.camera);
+        },
+        // 主题变化时更新粒子颜色
+        updateColor() {
+            if (!this.particles) return;
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            this.particles.material.color.set(isDark ? 0xffffff : 0x0a0a0a);
+        }
+    };
+
+    /* ============================================================
+     * 平滑滚动模块（Lenis + GSAP ScrollTrigger 集成）
+     * ============================================================ */
+    const SmoothScroll = {
+        lenis: null,
+        init() {
+            if (!Utils.has('Lenis') || !Utils.has('gsap')) return;
+            try {
+                this.lenis = new Lenis({
+                    duration: 1.2,
+                    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                    smoothWheel: true,
+                    wheelMultiplier: 1,
+                    touchMultiplier: 2,
+                    infinite: false
+                });
+                // 将 Lenis 的滚动事件驱动 ScrollTrigger
+                if (Utils.has('ScrollTrigger')) {
+                    this.lenis.on('scroll', ScrollTrigger.update);
+                    gsap.ticker.add((time) => {
+                        this.lenis.raf(time * 1000);
+                    });
+                    gsap.ticker.lagSmoothing(50);
+                } else {
+                    // 没有 ScrollTrigger 时独立 raf
+                    const raf = (time) => {
+                        this.lenis.raf(time);
+                        requestAnimationFrame(raf);
+                    };
+                    requestAnimationFrame(raf);
+                }
+            } catch (e) {
+                console.warn('Lenis 初始化失败，使用原生滚动', e);
+            }
+        }
+    };
+
+    /* ============================================================
+     * 滚动动画模块（ScrollTrigger 驱动）
+     * 包含：通用渐入、项目卡片 3D 旋转、博客视差、时间线生长、关于引言揭示
+     * ============================================================ */
+    const ScrollAnims = {
+        init() {
+            if (!Utils.has('gsap') || !Utils.has('ScrollTrigger')) {
+                // 兜底：直接显示所有隐藏元素
+                this.fallbackReveal();
+                return;
+            }
+            gsap.registerPlugin(ScrollTrigger);
+            this.animateSectionReveal();
+            this.animateProjectCards();
+            this.animateBlog();
+            this.animateTimeline();
+            this.animateAbout();
+            this.animateContact();
+            // 批量刷新，避免多个ScrollTrigger依次计算布局
+            ScrollTrigger.refresh();
+        },
+        // 兜底：CDN 失败时直接显示所有内容
+        fallbackReveal() {
+            document.querySelectorAll('.reveal, .project-card, .timeline-item, .about-quote .line-inner, .hero-name .char, .hero-tagline').forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+            });
+        },
+        // 通用区块渐入：所有 .reveal 元素
+        animateSectionReveal() {
+            gsap.utils.toArray('.section-label, .section-title').forEach(el => {
+                gsap.from(el, {
+                    opacity: 0,
+                    y: 40,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 85%',
+                        once: true
+                    }
+                });
+            });
+        },
+        // 项目卡片：3D 旋转渐入（rotateY 15deg → 0）
+        animateProjectCards() {
+            gsap.utils.toArray('.project-card').forEach((card, i) => {
+                gsap.to(card, {
+                    opacity: 1,
+                    rotateY: 0,
+                    duration: 1,
+                    ease: 'power3.out',
+                    delay: i * 0.1,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        once: true
+                    }
+                });
+                // 初始状态：旋转 + 透明
+                gsap.set(card, { rotateY: 15, transformPerspective: 1000 });
+            });
+        },
+        // 博客列表：渐入动画
+        animateBlog() {
+            gsap.utils.toArray('.blog-item').forEach((item) => {
+                gsap.from(item, {
+                    opacity: 0,
+                    y: 30,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    scrollTrigger: { trigger: item, start: 'top 85%', once: true }
+                });
+            });
+        },
+        // 简历时间线：线条生长 + 节点逐个渐入
+        animateTimeline() {
+            const timeline = document.getElementById('timeline');
+            if (!timeline) return;
+            // 线条 scaleY 0 → 1
+            gsap.to(timeline, {
+                '--scrollProgress': 1,
+                duration: 2,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: timeline,
+                    start: 'top 70%',
+                    end: 'bottom 70%',
+                    scrub: 0.5
+                }
+            });
+            // 兼容性：直接操作 ::before 无法，改用内联线
+            const line = document.createElement('div');
+            line.style.cssText = 'position:absolute;left:0;top:0;width:1px;height:100%;background:var(--fg);transform:scaleY(0);transform-origin:top;opacity:0.5;';
+            timeline.appendChild(line);
+            gsap.to(line, {
+                scaleY: 1,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: timeline,
+                    start: 'top 70%',
+                    end: 'bottom 70%',
+                    scrub: 0.5
+                }
+            });
+            // 节点逐个渐入
+            gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+                gsap.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    delay: i * 0.15,
+                    scrollTrigger: { trigger: item, start: 'top 85%', once: true }
+                });
+                gsap.set(item, { y: 30 });
+            });
+        },
+        // 关于区块：大字体引言逐行从下往上渐入
+        animateAbout() {
+            const lines = document.querySelectorAll('.about-quote .line-inner');
+            if (!lines.length) return;
+            gsap.to(lines, {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: 'power3.out',
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: '.about-quote',
+                    start: 'top 75%',
+                    once: true
+                }
+            });
+            gsap.set(lines, { y: '100%', opacity: 0 });
+        },
+        // 联系区块：标题渐入
+        animateContact() {
+            const title = document.querySelector('.contact-title');
+            if (!title) return;
+            gsap.from(title, {
+                opacity: 0,
+                y: 40,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: { trigger: title, start: 'top 80%', once: true }
+            });
+        }
+    };
+
+    /* ============================================================
+     * 项目卡片 hover SVG 遮罩揭示模块
+     * ============================================================ */
+    const ProjectMask = {
+        init() {
+            // 使用 clip-path 圆形扩散动画
+            document.querySelectorAll('.project-card').forEach(card => {
+                const mask = card.querySelector('.project-mask');
+                if (!mask) return;
+                // 初始 clip-path：圆形半径 0
+                mask.style.clipPath = 'circle(0% at 50% 50%)';
+                mask.style.webkitClipPath = 'circle(0% at 50% 50%)';
+                // hover 时扩散
+                card.addEventListener('mouseenter', () => {
+                    mask.style.transition = 'clip-path 0.5s cubic-bezier(0.16,1,0.3,1), -webkit-clip-path 0.5s cubic-bezier(0.16,1,0.3,1)';
+                    mask.style.clipPath = 'circle(150% at 50% 50%)';
+                    mask.style.webkitClipPath = 'circle(150% at 50% 50%)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    mask.style.clipPath = 'circle(0% at 50% 50%)';
+                    mask.style.webkitClipPath = 'circle(0% at 50% 50%)';
+                });
+            });
+        }
+    };
+
+    /* ============================================================
+     * 主入口：DOMContentLoaded 后初始化所有模块
+     * ============================================================ */
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. 主题与语言优先初始化（避免闪烁）
+        Theme.init();
+        I18n.init();
+
+        // 2. 自定义光标
+        Cursor.init();
+
+        // 3. Hero 名字动效（含字符拆分与 3D 倾斜）
+        HeroName.init();
+
+        // 4. Three.js 粒子背景
+        ParticleBg.init();
+
+        // 5. 平滑滚动
+        SmoothScroll.init();
+
+        // 6. 滚动动画
+        ScrollAnims.init();
+
+        // 7. 项目卡片遮罩
+        ProjectMask.init();
+
+        // 8. 绑定主题/语言切换按钮
+        const themeBtn = document.getElementById('themeToggle');
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                Theme.toggle();
+                // 主题切换时更新粒子颜色
+                setTimeout(() => ParticleBg.updateColor(), 100);
+            });
+        }
+        const langBtn = document.getElementById('langToggle');
+        if (langBtn) {
+            langBtn.addEventListener('click', () => I18n.toggle());
+        }
+
+        // 9. 动态绑定光标 hover（针对动态生成的元素）
+        if (Utils.has('gsap')) {
+            // 重新绑定光标交互（因为某些元素可能在初始化后才被识别）
+            const hoverSelector = 'a, button, .project-card, .blog-item, .skill-tag, .contact-link';
+            document.querySelectorAll(hoverSelector).forEach(el => {
+                if (!el._cursorBound) {
+                    el._cursorBound = true;
+                    el.addEventListener('mouseenter', () => {
+                        const dot = document.getElementById('cursorDot');
+                        if (dot) dot.classList.add('is-hover');
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        const dot = document.getElementById('cursorDot');
+                        if (dot) dot.classList.remove('is-hover');
+                    });
+                }
+            });
+        }
+    });
+</script>

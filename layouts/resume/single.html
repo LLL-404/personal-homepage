@@ -1,0 +1,9 @@
+{{ define "main" }}
+<!-- 简历页 -->
+<section class="section" id="resume">
+    <span class="section-label">{{ i18n "resume_label" }}</span>
+    <h2 class="section-title">{{ i18n "resume_title" }}</h2>
+    {{ .Content }}
+    <p><a href="{{ "/resume.pdf" | relURL }}" class="btn-download">{{ i18n "download_pdf" }}</a></p>
+</section>
+{{ end }}

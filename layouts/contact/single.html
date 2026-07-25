@@ -1,0 +1,10 @@
+{{ define "main" }}
+<!-- 联系页 -->
+<section class="section contact" id="contact">
+    <h2 class="contact-title">{{ i18n "contact_title" }}</h2>
+    <ul class="contact-links">
+        <li><a class="contact-link" href="mailto:{{ .Site.Params.email }}">{{ .Site.Params.email }}</a></li>
+        <li><a class="contact-link" href="{{ .Site.Params.github }}" target="_blank">GitHub</a></li>
+    </ul>
+</section>
+{{ end }}

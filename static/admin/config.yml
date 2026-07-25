@@ -1,0 +1,152 @@
+# 后台配置
+backend:
+  name: git-gateway
+  branch: main
+
+# 媒体上传
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+# 站点 URL（用于 OAuth）
+site_url: https://LLL-404.github.io/personal-homepage
+
+# 本地开发模式
+local_backend: true
+
+# 集合定义
+collections:
+  # 中文博客文章
+  - name: "zh_posts"
+    label: "中文博客"
+    folder: "content/zh/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime" }
+      - { label: "草稿", name: "draft", widget: "boolean", default: false }
+      - { label: "描述", name: "description", widget: "string" }
+      - { label: "分类", name: "category", widget: "string", required: false }
+      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # 中文项目
+  - name: "zh_projects"
+    label: "中文项目"
+    folder: "content/zh/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime" }
+      - { label: "草稿", name: "draft", widget: "boolean", default: false }
+      - { label: "描述", name: "description", widget: "string" }
+      - { label: "分类", name: "category", widget: "string", required: false }
+      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "技术栈", name: "tech_stack", widget: "list", required: false }
+      - { label: "链接", name: "link", widget: "string", required: false }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # 中文简历
+  - name: "zh_resume"
+    label: "中文简历"
+    folder: "content/zh/resume"
+    create: false
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime" }
+      - { label: "草稿", name: "draft", widget: "boolean", default: false }
+      - { label: "描述", name: "description", widget: "string" }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # 中文关于
+  - name: "zh_about"
+    label: "中文关于"
+    folder: "content/zh/about"
+    create: false
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime" }
+      - { label: "草稿", name: "draft", widget: "boolean", default: false }
+      - { label: "描述", name: "description", widget: "string" }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # 中文联系
+  - name: "zh_contact"
+    label: "中文联系"
+    folder: "content/zh/contact"
+    create: false
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "date", widget: "datetime" }
+      - { label: "草稿", name: "draft", widget: "boolean", default: false }
+      - { label: "描述", name: "description", widget: "string" }
+      - { label: "正文", name: "body", widget: "markdown" }
+
+  # 英文博客文章
+  - name: "en_posts"
+    label: "English Blog"
+    folder: "content/en/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Category", name: "category", widget: "string", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # 英文项目
+  - name: "en_projects"
+    label: "English Projects"
+    folder: "content/en/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Category", name: "category", widget: "string", required: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Tech Stack", name: "tech_stack", widget: "list", required: false }
+      - { label: "Link", name: "link", widget: "string", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # 英文简历
+  - name: "en_resume"
+    label: "English Resume"
+    folder: "content/en/resume"
+    create: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # 英文关于
+  - name: "en_about"
+    label: "English About"
+    folder: "content/en/about"
+    create: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  # 英文联系
+  - name: "en_contact"
+    label: "English Contact"
+    folder: "content/en/contact"
+    create: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }

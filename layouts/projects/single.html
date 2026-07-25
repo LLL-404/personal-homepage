@@ -1,0 +1,18 @@
+{{ define "main" }}
+<!-- 项目详情页 -->
+<section class="section">
+    <span class="section-label">{{ i18n "portfolio_label" }}</span>
+    <h2 class="section-title">{{ .Title }}</h2>
+    <div class="project-content">
+        {{ .Content }}
+        {{ with .Params.tech_stack }}
+        <div class="project-tags">
+            {{ range . }}<span class="tag">{{ . }}</span>{{ end }}
+        </div>
+        {{ end }}
+        {{ with .Params.link }}
+        <p><a href="{{ . }}" target="_blank">{{ i18n "portfolio_view" }}</a></p>
+        {{ end }}
+    </div>
+</section>
+{{ end }}

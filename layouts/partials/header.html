@@ -1,0 +1,19 @@
+<!-- 顶部导航 -->
+<nav class="nav">
+    <a href="{{ .Site.Home.RelPermalink }}" class="nav-brand">{{ .Site.Params.brand | default "YN." }}</a>
+    <ul class="nav-links">
+        {{ range .Site.Menus.main }}
+        <li><a href="{{ .URL }}" data-i18n="nav.{{ .Identifier }}">{{ .Name }}</a></li>
+        {{ end }}
+    </ul>
+    <div class="nav-tools">
+        <!-- 语言切换 -->
+        <button class="tool-btn" id="langToggle" aria-label="切换语言">{{ if eq .Site.Language.LanguageCode "zh-cn" }}EN{{ else }}中{{ end }}</button>
+        <!-- 主题切换 -->
+        <button class="tool-btn" id="themeToggle" aria-label="切换主题">
+            <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+</nav>
