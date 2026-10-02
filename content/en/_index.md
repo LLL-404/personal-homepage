@@ -1,8 +1,8 @@
 ---
 title: "Home"
-date: 2024-01-01
+date: 2026-10-02
 draft: false
-description: "Personal homepage"
+description: "LLL-404's personal site: open-source projects and build notes"
 ---
 
-Welcome to my personal homepage.
+Welcome to LLL-404's personal site.

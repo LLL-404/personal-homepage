@@ -1,14 +1,8 @@
 ---
-title: "Contact Me"
-date: 2025-01-01
+title: "Contact"
+date: 2026-10-02
 draft: false
-description: "Contact information"
+description: "Contact LLL-404"
 ---
 
-If you'd like to get in touch, feel free to reach out via:
-
-- **Email**: email@example.com
-- **GitHub**: [github.com/username](https://github.com/username)
-- **Twitter**: [twitter.com/username](https://twitter.com/username)
-
-I'm always happy to discuss technology, design, and interesting project opportunities.
+The fastest way to reach me is GitHub: [github.com/LLL-404](https://github.com/LLL-404). Issues and PRs welcome.

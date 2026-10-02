@@ -1,16 +1,14 @@
 ---
-title: "About Me"
-date: 2025-01-01
+title: "About"
+date: 2026-10-02
 draft: false
-description: "Personal introduction"
+description: "About LLL-404"
 ---
 
-> I believe good software is like good writing — restrained, precise, and saying what it should, right when it should.
+I'm **LLL-404**, a developer who likes turning ideas into things that actually run.
 
-I am a full-stack engineer passionate about building digital products with both engineering depth and design aesthetics. Over the past decade, I have worked in environments ranging from startups to large platforms, focusing on distributed systems, real-time collaboration, and developer experience.
+- Building **MCP tools** that let AI assistants operate Word documents, Android devices, and browsers
+- Making **browser automation agents** and other small utilities that save time
+- Prototyping small games with **Godot + C#**
 
-## Skills
-
-- Python, JavaScript, Go, Rust
-- React, Node.js, Docker
-- PostgreSQL, Redis, Kubernetes
+This site aggregates my repos and build notes — nothing else. For code, head straight to [GitHub](https://github.com/LLL-404).

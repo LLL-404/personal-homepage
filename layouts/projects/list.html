@@ -4,17 +4,17 @@
     <span class="section-label">{{ i18n "portfolio_label" }}</span>
     <h2 class="section-title">{{ i18n "portfolio_title" }}</h2>
     <div class="portfolio-grid">
-        {{ range .Pages }}
+        {{ range $i, $p := .Pages }}
         <article class="project-card">
             <div class="project-mask">
                 <span>{{ i18n "portfolio_view" }}</span>
             </div>
             <div class="project-content">
-                <div class="project-number">{{ printf "%03d" (add .Ordinal 1) }}</div>
-                <h3 class="project-title">{{ .Title }}</h3>
-                <p class="project-desc">{{ .Description }}</p>
+                <div class="project-number">{{ printf "%03d" (add $i 1) }}</div>
+                <h3 class="project-title">{{ $p.Title }}</h3>
+                <p class="project-desc">{{ $p.Description }}</p>
                 <div class="project-tags">
-                    {{ range .Params.tags }}<span class="tag">{{ . }}</span>{{ end }}
+                    {{ range $p.Params.tags }}<span class="tag">{{ . }}</span>{{ end }}
                 </div>
             </div>
         </article>

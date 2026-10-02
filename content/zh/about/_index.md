@@ -1,16 +1,14 @@
 ---
-title: "关于我"
-date: 2025-01-01
+title: "关于"
+date: 2026-10-02
 draft: false
-description: "个人介绍"
+description: "关于 LLL-404"
 ---
 
-> 我相信好的软件像好的文字——克制、精确，并在恰当的时刻说出它应该说的话。
+我是 **LLL-404**，一个喜欢把想法做成能跑的东西的开发者。
 
-我是一名全栈工程师，热衷于构建既有工程深度又有设计美感的数字产品。过去十年，我在从初创公司到大型平台的多种环境中工作，专注于分布式系统、实时协作和开发者体验。
+- 写 **MCP 工具**，让 AI 助手能操作 Word 文档、安卓设备和浏览器
+- 做 **浏览器自动化 Agent** 和各种省事的小工具
+- 用 **Godot + C#** 捯饬小游戏原型
 
-## 技能
-
-- Python, JavaScript, Go, Rust
-- React, Node.js, Docker
-- PostgreSQL, Redis, Kubernetes
+这个站点聚合我的仓库与构建笔记，不写别的东西。想看代码，直接去 [GitHub](https://github.com/LLL-404)。

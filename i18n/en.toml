@@ -5,7 +5,7 @@ other = "Projects"
 [nav_blog]
 other = "Blog"
 [nav_resume]
-other = "Resume"
+other = "Journey"
 [nav_about]
 other = "About"
 [nav_contact]
@@ -18,5 +18,36 @@ other = "中文"
 other = "Read more"
 [back_to_list]
 other = "Back to list"
-[download_pdf]
-other = "Download PDF"
+
+[hero_tagline]
+other = "Building tools, automation and games — shipping ideas as code."
+[hero_scroll]
+other = "Scroll down"
+[footer_built]
+other = "Built by hand with Hugo"
+
+[portfolio_label]
+other = "Portfolio"
+[portfolio_title]
+other = "Selected Projects"
+[portfolio_view]
+other = "View"
+[blog_label]
+other = "Blog"
+[blog_title]
+other = "Recent Posts"
+[resume_label]
+other = "Journey"
+[resume_title]
+other = "What I've Been Building"
+[about_label]
+other = "About"
+[contact_title]
+other = "Contact"
+
+[about_l1]
+other = "I build tools, automation, and small games."
+[about_l2]
+other = "Small and complete beats big and vague."
+[about_l3]
+other = "This site aggregates my repos and build notes."

@@ -1,11 +1,13 @@
 # Hugo 站点配置文件
 baseURL = "https://LLL-404.github.io/personal-homepage/"
 languageCode = "zh-cn"
-title = "Your Name"
-# 不使用外部主题，使用自定义布局
-theme = ""
+title = "LLL-404"
 
 # 双语配置
+defaultContentLanguage = "zh"
+defaultContentLanguageInSubdir = false
+disableKinds = ["taxonomy", "term"]
+
 [languages]
 # 中文（默认语言）
 [languages.zh]
@@ -22,68 +24,83 @@ contentDir = "content/en"
 # 中文菜单
 [[languages.zh.menu.main]]
 name = "首页"
+identifier = "home"
 url = "/"
 weight = 1
 
 [[languages.zh.menu.main]]
 name = "作品集"
+identifier = "work"
 url = "/projects/"
 weight = 2
 
 [[languages.zh.menu.main]]
 name = "博客"
+identifier = "blog"
 url = "/posts/"
 weight = 3
 
 [[languages.zh.menu.main]]
-name = "简历"
+name = "足迹"
+identifier = "resume"
 url = "/resume/"
 weight = 4
 
 [[languages.zh.menu.main]]
 name = "关于"
+identifier = "about"
 url = "/about/"
 weight = 5
 
 [[languages.zh.menu.main]]
 name = "联系"
+identifier = "contact"
 url = "/contact/"
 weight = 6
 
 # 英文菜单
 [[languages.en.menu.main]]
 name = "Home"
+identifier = "home"
 url = "/en/"
 weight = 1
 
 [[languages.en.menu.main]]
 name = "Projects"
+identifier = "work"
 url = "/en/projects/"
 weight = 2
 
 [[languages.en.menu.main]]
 name = "Blog"
+identifier = "blog"
 url = "/en/posts/"
 weight = 3
 
 [[languages.en.menu.main]]
-name = "Resume"
+name = "Journey"
+identifier = "resume"
 url = "/en/resume/"
 weight = 4
 
 [[languages.en.menu.main]]
 name = "About"
+identifier = "about"
 url = "/en/about/"
 weight = 5
 
 [[languages.en.menu.main]]
 name = "Contact"
+identifier = "contact"
 url = "/en/contact/"
 weight = 6
 
 # 站点参数
 [params]
-author = "Your Name"
-description = "个人主页 - 作品集、博客、简历"
-github = "https://github.com/username"
-email = "email@example.com"
+author = "LLL-404"
+brand = "L404."
+description = "LLL-404 的个人站点 —— 开源项目与构建笔记"
+github = "https://github.com/LLL-404"
+
+# 技能标签（站点首页「关于」区块展示）
+skills = ["Python", "TypeScript", "C# · Godot", "MCP 工具开发", "浏览器自动化", "Hugo · 静态站点", "Git"]

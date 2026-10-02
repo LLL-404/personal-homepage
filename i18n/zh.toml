@@ -5,7 +5,7 @@ other = "作品集"
 [nav_blog]
 other = "博客"
 [nav_resume]
-other = "简历"
+other = "足迹"
 [nav_about]
 other = "关于"
 [nav_contact]
@@ -18,5 +18,36 @@ other = "English"
 other = "阅读更多"
 [back_to_list]
 other = "返回列表"
-[download_pdf]
-other = "下载 PDF"
+
+[hero_tagline]
+other = "构建工具、自动化与游戏 —— 用代码把想法跑起来"
+[hero_scroll]
+other = "向下滚动"
+[footer_built]
+other = "基于 Hugo 手工构建"
+
+[portfolio_label]
+other = "作品集"
+[portfolio_title]
+other = "精选项目"
+[portfolio_view]
+other = "查看"
+[blog_label]
+other = "博客"
+[blog_title]
+other = "近期文章"
+[resume_label]
+other = "足迹"
+[resume_title]
+other = "做过的方向"
+[about_label]
+other = "关于"
+[contact_title]
+other = "联系"
+
+[about_l1]
+other = "写工具，跑自动化，做小游戏。"
+[about_l2]
+other = "相信小而完整的东西胜过大而空的计划。"
+[about_l3]
+other = "这里聚合我的仓库与构建笔记。"

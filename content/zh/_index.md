@@ -1,8 +1,8 @@
 ---
 title: "首页"
-date: 2024-01-01
+date: 2026-10-02
 draft: false
-description: "个人主页首页"
+description: "LLL-404 的个人站点：开源项目与构建笔记"
 ---
 
-欢迎来到我的个人主页。
+LLL-404 的个人站点。
