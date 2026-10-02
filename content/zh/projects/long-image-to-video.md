@@ -10,4 +10,4 @@ tech_stack: ["Python", "FFmpeg"]
 link: "https://github.com/LLL-404/long-image-to-video"
 ---
 
-输入一张长图，输出一段匀速滚动的视频——聊天记录、长文、数据大屏截图分享场景的小帮手。
+输入一张长图，输出一段匀速滚动的视频，适合分享聊天记录、长文与数据大屏截图。
