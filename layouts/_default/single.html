@@ -1,0 +1,22 @@
+{{ define "main" }}
+<div class="shead"><div class="wrap">
+    <h1 class="stitle">{{ .Title }}</h1>
+    <div class="smeta">
+        {{ with .Params.category }}<span class="tchip">{{ . }}</span>{{ end }}
+        {{ range .Params.tags }}<span class="tag">{{ . }}</span>{{ end }}
+        {{ if ne .Section "about" }}<span class="tag">{{ .Date.Format "2006·01·02" }}</span>{{ end }}
+    </div>
+    {{ with .Description }}<p class="sdesc">{{ . }}</p>{{ end }}
+</div></div>
+
+<div class="wrap">
+    {{ if and (eq .Section "projects") .Params.tech_stack }}
+    <div style="padding:22px 0 0"><div class="tchips">{{ range .Params.tech_stack }}<span class="tchip">{{ . }}</span>{{ end }}</div></div>
+    {{ end }}
+    <div class="prose">{{ .Content }}</div>
+    <div class="backrow">
+        <a class="bb c" href="{{ .Parent.RelPermalink | default .Site.Home.RelPermalink }}">← {{ i18n "back_to_list" }}</a>
+        <a class="bb y" style="margin-left:12px" href="https://github.com/LLL-404" target="_blank" rel="noopener">{{ i18n "nav_github" }}</a>
+    </div>
+</div>
+{{ end }}

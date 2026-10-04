@@ -1,3 +1,6 @@
+[brand_sub]
+other = "个人主页"
+
 [nav_home]
 other = "首页"
 [nav_projects]
@@ -10,44 +13,83 @@ other = "足迹"
 other = "关于"
 [nav_contact]
 other = "联系"
-[theme_toggle]
-other = "切换主题"
+
 [language_toggle]
 other = "English"
 [read_more]
 other = "阅读更多"
 [back_to_list]
 other = "返回列表"
+[view_all]
+other = "全部"
 
-[hero_tagline]
-other = "构建工具、自动化与游戏 —— 用代码把想法跑起来"
-[hero_scroll]
-other = "向下滚动"
-[footer_built]
-other = "基于 Hugo 手工构建"
+[hero_greeting]
+other = "你好，我是"
+[hero_statement]
+other = "构建工具、自动化与游戏 —— 用代码把想法跑起来。"
+[hero_bio]
+other = "在 GitHub 上写 MCP 工具链、浏览器自动化 Agent 和 Godot 小游戏原型。这里聚合我的仓库与构建笔记，不写别的东西。"
+[hero_places]
+other = "工具 · 自动化 · 游戏"
+[hero_btn_projects]
+other = "看作品集"
 
 [portfolio_label]
 other = "作品集"
 [portfolio_title]
 other = "精选项目"
+[portfolio_lead]
+other = "真正在维护、能跑起来的项目。"
 [portfolio_view]
-other = "查看"
+other = "查看仓库"
+
 [blog_label]
 other = "博客"
 [blog_title]
 other = "近期文章"
+
 [resume_label]
 other = "足迹"
 [resume_title]
 other = "做过的方向"
+
 [about_label]
 other = "关于"
+
 [contact_title]
 other = "联系"
+[cta_title]
+other = "有想法，欢迎来聊。"
+[cta_desc]
+other = "代码全在 GitHub 上公开，issue 和 PR 都欢迎。"
 
-[about_l1]
-other = "写工具，跑自动化，做小游戏。"
-[about_l2]
-other = "相信小而完整的东西胜过大而空的计划。"
-[about_l3]
-other = "这里聚合我的仓库与构建笔记。"
+[footer_built]
+other = "基于 Hugo 手工构建"
+
+[hero_line1]
+other = "构建工具、"
+[hero_line2a]
+other = "自动化"
+[hero_line2b]
+other = " 与 "
+[hero_line2c]
+other = "游戏"
+[hero_line3]
+other = "跑起来才算数。"
+[badge_est]
+other = "EST.2026 · 济南 · CHINA"
+[lab_work]
+other = "作品集 · WORK"
+[lab_journey]
+other = "足迹 · JOURNEY"
+[lab_posts]
+other = "手记 · NOTES"
+[nav_github]
+other = "GitHub ↗"
+[lang_toggle]
+other = "English"
+
+[lab_about]
+other = "关于 · ABOUT"
+[lab_contact]
+other = "联系 · CONTACT"

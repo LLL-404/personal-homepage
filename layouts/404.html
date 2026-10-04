@@ -1,7 +1,11 @@
 {{ define "main" }}
-<section class="section">
-    <span class="section-label">404</span>
-    <h2 class="section-title">页面不存在 / Not Found</h2>
-    <p style="margin-top:1.5rem"><a class="contact-link" href="{{ .Site.Home.RelPermalink }}">返回首页 / Back to home</a></p>
-</section>
+<div class="nf">
+    <span class="lab">ERROR · 404</span>
+    <div class="n">404</div>
+    <p style="font-weight:700">这一页还没造出来。</p>
+    <div class="acts">
+        <a class="bb y" href="{{ .Site.Home.RelPermalink }}">← {{ i18n "nav_home" }}</a>
+        <a class="bb c" href="{{ "/projects/" | relURL }}">{{ i18n "nav_projects" }}</a>
+    </div>
+</div>
 {{ end }}

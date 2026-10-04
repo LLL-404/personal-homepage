@@ -1,3 +1,6 @@
+[brand_sub]
+other = "Personal site"
+
 [nav_home]
 other = "Home"
 [nav_projects]
@@ -10,44 +13,83 @@ other = "Journey"
 other = "About"
 [nav_contact]
 other = "Contact"
-[theme_toggle]
-other = "Toggle theme"
+
 [language_toggle]
 other = "中文"
 [read_more]
 other = "Read more"
 [back_to_list]
 other = "Back to list"
+[view_all]
+other = "All"
 
-[hero_tagline]
-other = "Building tools, automation and games — shipping ideas as code."
-[hero_scroll]
-other = "Scroll down"
-[footer_built]
-other = "Built by hand with Hugo"
+[hero_greeting]
+other = "Hi, I'm"
+[hero_statement]
+other = "I build tools, automation and games — shipping ideas as code."
+[hero_bio]
+other = "Writing MCP toolchains, browser-automation agents and Godot game prototypes on GitHub. This site aggregates my repos and build notes."
+[hero_places]
+other = "Tools · Automation · Games"
+[hero_btn_projects]
+other = "View projects"
 
 [portfolio_label]
 other = "Portfolio"
 [portfolio_title]
 other = "Selected Projects"
+[portfolio_lead]
+other = "Projects I actually maintain and run."
 [portfolio_view]
-other = "View"
+other = "View repo"
+
 [blog_label]
 other = "Blog"
 [blog_title]
 other = "Recent Posts"
+
 [resume_label]
 other = "Journey"
 [resume_title]
 other = "What I've Been Building"
+
 [about_label]
 other = "About"
+
 [contact_title]
 other = "Contact"
+[cta_title]
+other = "Got an idea? Let's talk."
+[cta_desc]
+other = "All my code is public on GitHub — issues and PRs welcome."
 
-[about_l1]
-other = "I build tools, automation, and small games."
-[about_l2]
-other = "Small and complete beats big and vague."
-[about_l3]
-other = "This site aggregates my repos and build notes."
+[footer_built]
+other = "Built by hand with Hugo"
+
+[hero_line1]
+other = "Build tools,"
+[hero_line2a]
+other = "automation"
+[hero_line2b]
+other = " & "
+[hero_line2c]
+other = "games"
+[hero_line3]
+other = "Ship it or it didn't happen."
+[badge_est]
+other = "EST.2026 · JINAN · CHINA"
+[lab_work]
+other = "WORK · Portfolio"
+[lab_journey]
+other = "JOURNEY · Tracks"
+[lab_posts]
+other = "NOTES · Writing"
+[nav_github]
+other = "GitHub ↗"
+[lang_toggle]
+other = "中文"
+
+[lab_about]
+other = "ABOUT · About"
+[lab_contact]
+other = "CONTACT · Reach me"

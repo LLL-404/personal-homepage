@@ -1,19 +1,28 @@
-<!-- 顶部导航 -->
-<nav class="nav">
-    <a href="{{ .Site.Home.RelPermalink }}" class="nav-brand">{{ .Site.Params.brand | default "YN." }}</a>
-    <ul class="nav-links">
-        {{ range .Site.Menus.main }}
-        <li><a href="{{ .URL }}" data-i18n="nav.{{ .Identifier }}">{{ .Name }}</a></li>
-        {{ end }}
-    </ul>
-    <div class="nav-tools">
-        <!-- 语言切换 -->
-        <button class="tool-btn" id="langToggle" aria-label="切换语言">{{ if eq .Site.Language.LanguageCode "zh-cn" }}EN{{ else }}中{{ end }}</button>
-        <!-- 主题切换 -->
-        <button class="tool-btn" id="themeToggle" aria-label="切换主题">
-            <svg class="theme-icon" id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-            </svg>
-        </button>
+<div class="mq" aria-hidden="true">
+    <div class="mq-t">
+        <span>MCP TOOLCHAIN <i>★</i></span><span>BROWSER AUTOMATION <i>★</i></span><span>GODOT GAMES <i>★</i></span><span>CLI TOOLS <i>★</i></span><span>OPEN SOURCE <i>★</i></span><span>SHIP IT <i>★</i></span><span>MCP TOOLCHAIN <i>★</i></span><span>BROWSER AUTOMATION <i>★</i></span><span>GODOT GAMES <i>★</i></span><span>CLI TOOLS <i>★</i></span><span>OPEN SOURCE <i>★</i></span><span>SHIP IT <i>★</i></span>
     </div>
+</div>
+<div class="navrow">
+    <a class="brand" href="{{ .Site.Home.RelPermalink }}">LLL-404 <small>{{ i18n "brand_sub" }}</small></a>
+    <nav class="nlinks">
+        <a class="nlink {{ if .IsHome }}on{{ end }}" href="{{ .Site.Home.RelPermalink }}">{{ i18n "nav_home" }}</a>
+        <a class="nlink {{ if (hasPrefix .RelPermalink "/projects") }}on{{ end }}" href="{{ "/projects/" | relURL }}">{{ i18n "nav_projects" }}</a>
+        <a class="nlink {{ if (hasPrefix .RelPermalink "/posts") }}on{{ end }}" href="{{ "/posts/" | relURL }}">{{ i18n "nav_blog" }}</a>
+        <a class="nlink {{ if (hasPrefix .RelPermalink "/resume") }}on{{ end }}" href="{{ "/resume/" | relURL }}">{{ i18n "nav_resume" }}</a>
+        <a class="nlink {{ if (hasPrefix .RelPermalink "/about") }}on{{ end }}" href="{{ "/about/" | relURL }}">{{ i18n "nav_about" }}</a>
+        <a class="nlink {{ if (hasPrefix .RelPermalink "/contact") }}on{{ end }}" href="{{ "/contact/" | relURL }}">{{ i18n "nav_contact" }}</a>
+        <a class="nlink gh" href="https://github.com/LLL-404" target="_blank" rel="noopener">{{ i18n "nav_github" }}</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</div>
+<nav class="mnav" id="mnav">
+    <button class="mclose" id="mclose">✕</button>
+    <a href="{{ .Site.Home.RelPermalink }}">{{ i18n "nav_home" }}</a>
+    <a href="{{ "/projects/" | relURL }}">{{ i18n "nav_projects" }}</a>
+    <a href="{{ "/posts/" | relURL }}">{{ i18n "nav_blog" }}</a>
+    <a href="{{ "/resume/" | relURL }}">{{ i18n "nav_resume" }}</a>
+    <a href="{{ "/about/" | relURL }}">{{ i18n "nav_about" }}</a>
+    <a href="{{ "/contact/" | relURL }}">{{ i18n "nav_contact" }}</a>
+    <a href="https://github.com/LLL-404" target="_blank" rel="noopener" style="color:var(--y)">{{ i18n "nav_github" }}</a>
 </nav>

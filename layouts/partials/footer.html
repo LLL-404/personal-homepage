@@ -1,4 +1,6 @@
-<!-- 页脚 -->
-<footer class="footer">
-    <p>© {{ now.Format "2006" }} {{ .Site.Params.author | default "Your Name" }} · <span data-i18n="footer.built">{{ i18n "footer_built" }}</span></p>
-</footer>
+<div class="wrap"><footer>
+    <div class="fin">
+        <span>© {{ now.Year }} LLL-404</span>
+        <span>{{ i18n "footer_built" }} · <a href="https://github.com/LLL-404" target="_blank" rel="noopener">GITHUB</a></span>
+    </div>
+</footer></div>
